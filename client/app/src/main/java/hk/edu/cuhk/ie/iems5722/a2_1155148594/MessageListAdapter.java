@@ -1,4 +1,4 @@
-package hk.edu.cuhk.ie.iems5722.a2_1155155009;
+package hk.edu.cuhk.ie.iems5722.a2_1155148594;
 
 import android.app.Activity;
 import android.content.Context;
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import hk.edu.cuhk.ie.iems5722.a2_1155155009.R;
+import hk.edu.cuhk.ie.iems5722.a2_1155148594.R;
 
 import static android.content.Context.MODE_PRIVATE;
 

@@ -1,4 +1,4 @@
-package hk.edu.cuhk.ie.iems5722.a2_1155155009;
+package hk.edu.cuhk.ie.iems5722.a2_1155148594;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
 
-        assertEquals("hk.edu.cuhk.ie.iems5722.a2_1155155009", appContext.getPackageName());
+        assertEquals("hk.edu.cuhk.ie.iems5722.a2_1155148594", appContext.getPackageName());
     }
 }

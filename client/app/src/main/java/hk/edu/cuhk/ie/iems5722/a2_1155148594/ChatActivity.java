@@ -1,9 +1,10 @@
-package hk.edu.cuhk.ie.iems5722.a2_1155155009;
+package hk.edu.cuhk.ie.iems5722.a2_1155148594;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 
+import android.annotation.SuppressLint;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
@@ -32,9 +33,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import io.socket.client.IO;
@@ -44,11 +43,7 @@ import io.socket.emitter.Emitter;
 
 public class ChatActivity extends AppCompatActivity {
     private EditText editText_message;
-    private ImageButton button_send;
-    private LinearLayout message_form;
     private ListView listView;
-    public final long USER_ID = 1155155009;
-    public final String USERNAME = "Junjie";
     private String chatroom_id;
     private boolean isLoading = true;
     private int page_number = 1;
@@ -68,10 +63,9 @@ public class ChatActivity extends AppCompatActivity {
         user_id = pref.getLong("user_id", 0);
         username = pref.getString("name", "");
 
-        listView = (ListView) findViewById(R.id.listview_message_list);
-        editText_message = (EditText) findViewById(R.id.edit_text_message);
-        button_send = (ImageButton) findViewById(R.id.button_message_send);
-        message_form = (LinearLayout) findViewById(R.id.message_form);
+        listView = findViewById(R.id.listview_message_list);
+        editText_message = findViewById(R.id.edit_text_message);
+        ImageButton button_send = findViewById(R.id.button_message_send);
         chatroom_id = getIntent().getStringExtra("c_id");
 
         // set up title for action bar and back button
@@ -80,7 +74,7 @@ public class ChatActivity extends AppCompatActivity {
         actionBar.setTitle(getIntent().getStringExtra("c_name"));
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-        // connect to server through socketio
+        // connect to server through socket_io
         try {
             socket = IO.socket("http://118.195.180.134:9001");
         } catch (URISyntaxException e) {
@@ -102,8 +96,6 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String message = editText_message.getText().toString();
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyy-MM-dd HH:mm:ss");
-                String format = simpleDateFormat.format(new Date());
                 if (message.length() > 0 && message.length() <= 200) {
                     new SendMessagesTask(ChatActivity.this
                             ,"http://118.195.180.134:9000/api/a3/send_message"
@@ -120,7 +112,7 @@ public class ChatActivity extends AppCompatActivity {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                Log.d("chatact", String.valueOf(firstVisibleItem + " " + visibleItemCount + " " + totalItemCount));
+                Log.d("chatact", firstVisibleItem + " " + visibleItemCount + " " + totalItemCount);
                 if(firstVisibleItem == 0 && totalItemCount != 0 && !isLoading) {
                     isLoading = true;
                     loadMessage(false);
@@ -138,7 +130,7 @@ public class ChatActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    private Emitter.Listener onMyResponse = new Emitter.Listener() {
+    private final Emitter.Listener onMyResponse = new Emitter.Listener() {
 
         @Override
         public void call(Object... args) {
@@ -147,7 +139,7 @@ public class ChatActivity extends AppCompatActivity {
                  if (data.getString("status").equalsIgnoreCase("OK")) {
                     Log.d("Websocket", data.toString());
                     Gson gson = new Gson();
-                    final Message m = gson.fromJson(data.getString("data").toString(), Message.class);
+                    final Message m = gson.fromJson(data.getString("data"), Message.class);
 
                     NotificationCompat.Builder builder = new NotificationCompat.Builder(ChatActivity.this)
                             .setSmallIcon(R.drawable.ic_message)
@@ -173,7 +165,7 @@ public class ChatActivity extends AppCompatActivity {
 
                 }
             } catch (JSONException e) {
-                System.out.println(e);
+                e.printStackTrace();
             }
         }
     };
@@ -202,23 +194,6 @@ public class ChatActivity extends AppCompatActivity {
         } else {
             editText_message.getText().clear();
         }
-        /*
-        else {
-            JSONObject jsonObject = null;
-            try {
-                jsonObject = new JSONObject(result);
-                if (jsonObject.getString("status").equalsIgnoreCase("OK")){
-                    adapter.add(new Message(
-                            editText_message.getText().toString(),
-                            new SimpleDateFormat("yyy-MM-dd HH:mm:ss").format(new Date()).toString(),
-                            USER_ID,  USERNAME));
-                    editText_message.getText().clear();
-                    scrollToBottom();
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }*/
     }
 
     public void refresh(String result) {
@@ -270,6 +245,7 @@ public class ChatActivity extends AppCompatActivity {
         page_number = 1;
         loadMessage(true);
     }
+    @SuppressLint("NonConstantResourceId")
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()) {
             case android.R.id.home:

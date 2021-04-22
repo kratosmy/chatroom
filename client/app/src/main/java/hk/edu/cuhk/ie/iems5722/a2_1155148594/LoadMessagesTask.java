@@ -1,11 +1,12 @@
-package hk.edu.cuhk.ie.iems5722.a2_1155155009;
+package hk.edu.cuhk.ie.iems5722.a2_1155148594;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 
 
 import java.io.IOException;
+import java.util.Objects;
 
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -13,12 +14,12 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class LoadMessagesTask extends AsyncTask<Void, Integer, String> {
-    private ProgressDialog dialog;
-    private String url;
-    private Activity activity;
-    private String chatroom_id;
-    private int pageNumber;
-    private boolean isRefresh;
+    private final String url;
+    @SuppressLint("StaticFieldLeak")
+    private final Activity activity;
+    private final String chatroom_id;
+    private final int pageNumber;
+    private final boolean isRefresh;
 
     public LoadMessagesTask(Activity activity, String url, String chatroom_id, int pageNumber, boolean isRefresh) {
         super();
@@ -46,7 +47,7 @@ public class LoadMessagesTask extends AsyncTask<Void, Integer, String> {
     @Override
     protected String doInBackground(Void... voids) {
         OkHttpClient client = new OkHttpClient();
-        HttpUrl.Builder urlBuilder = HttpUrl.parse(url).newBuilder();
+        HttpUrl.Builder urlBuilder = Objects.requireNonNull(HttpUrl.parse(url)).newBuilder();
         urlBuilder.addQueryParameter("chatroom_id", this.chatroom_id);
         urlBuilder.addQueryParameter("page", String.valueOf(pageNumber));
 
@@ -57,9 +58,8 @@ public class LoadMessagesTask extends AsyncTask<Void, Integer, String> {
         try {
             response = client.newCall(request).execute();
 
-            String result = response.body().string();
-            //Log.d("LoadMessagesTask", result);
-            return result;
+            assert response.body() != null;
+            return response.body().string();
         } catch (IOException e) {
             e.printStackTrace();
             return null;
@@ -74,6 +74,5 @@ public class LoadMessagesTask extends AsyncTask<Void, Integer, String> {
         } else {
             ((ChatActivity) activity).parseJsonResponse(result);
         }
-        //dialog.dismiss();
     }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="hk.edu.cuhk.ie.iems5722.a2_1155155009.ChatActivity">
+    tools:context="hk.edu.cuhk.ie.iems5722.a2_1155148594.ChatActivity">
 
     <ListView
         android:id="@+id/listview_message_list"
