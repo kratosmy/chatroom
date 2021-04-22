@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/addfriend"
+        android:title="add friend"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/add_35"/>
+    <item android:id="@+id/qrcode_scanner"
+        android:title="add friend"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/qrcode_scanner_35"/>
+
+    <item android:id="@+id/qrcode"
+        android:title="QR Code"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/qrcode_35"/>
+
+    <item android:id="@+id/bluetooth_search"
+        android:title="Discover Nearby"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/bluetooth_searching_35"/>
+
+    <item android:id="@+id/logout"
+        android:title="Log out"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/exit_35"/>
+
+
+</menu>

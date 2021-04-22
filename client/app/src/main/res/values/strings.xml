@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SlightlyBelieve</string>
+    <string name="chatroom_id">1</string>
+    <string name="chatroom_name">chatroom</string>
+</resources>
