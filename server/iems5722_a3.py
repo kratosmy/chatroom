@@ -80,7 +80,7 @@ def send_message():
             get_insert_row = "SELECT * FROM messages WHERE id = %d" % (g.mydb.cursor.lastrowid)
             g.mydb.cursor.execute(get_insert_row)
             inserted_row = g.mydb.cursor.fetchone()
-            url = 'http://0.0.0.0:9001/api/a4/broadcast_room'
+            url = 'http://0.0.0.0:8001/api/a4/broadcast_room'
             print(inserted_row)
             print(inserted_row["message_time"])
             payload = {'chatroom_id': chatroom_id, 'user_id': user_id, 'name': name, 'message': message,
@@ -98,7 +98,8 @@ def send_message():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=9000)
+    app.run(host='0.0.0.0', port=8000)
+
 
 
 

@@ -13,6 +13,7 @@ class MyDatabase:
 			host = "localhost", 
 			user = "dbuser",
 			password = "password",
-			database = "iems5722")
+			database = "iems5722",
+                        auth_plugin='mysql_native_password')
 		self.cursor =self.conn.cursor(dictionary =True) 
 		return

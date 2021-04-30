@@ -61,8 +61,9 @@ public class ChatActivity extends AppCompatActivity {
 
         SharedPreferences pref = getSharedPreferences("personal_info", MODE_PRIVATE);
         user_id = pref.getLong("user_id", 0);
+        System.out.println(user_id);
         username = pref.getString("name", "");
-
+        System.out.println(username);
         listView = findViewById(R.id.listview_message_list);
         editText_message = findViewById(R.id.edit_text_message);
         ImageButton button_send = findViewById(R.id.button_message_send);
@@ -76,7 +77,7 @@ public class ChatActivity extends AppCompatActivity {
 
         // connect to server through socket_io
         try {
-            socket = IO.socket("http://118.195.180.134:9001");
+            socket = IO.socket("http://104.197.173.15:8001");
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
@@ -98,7 +99,7 @@ public class ChatActivity extends AppCompatActivity {
                 String message = editText_message.getText().toString();
                 if (message.length() > 0 && message.length() <= 200) {
                     new SendMessagesTask(ChatActivity.this
-                            ,"http://118.195.180.134:9000/api/a3/send_message"
+                            ,"http://104.197.173.15/api/a3/send_message"
                             , chatroom_id, message, user_id, username).execute();
                 }
             }
@@ -172,7 +173,7 @@ public class ChatActivity extends AppCompatActivity {
     private void loadMessage(boolean isRefresh) {
         new LoadMessagesTask(
                 this,
-                "http://118.195.180.134:9000/api/a3/get_messages",
+                "http://104.197.173.15/api/a3/get_messages",
                 chatroom_id,
                 page_number, isRefresh).execute();
     }

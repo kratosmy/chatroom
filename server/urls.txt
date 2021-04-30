@@ -1,0 +1,5 @@
+get_chatrooms: http://104.197.173.15/api/a3/get_chatrooms
+
+get_messages: http://104.197.173.15/api/a3/get_messages?chatroom_id=1&page=1
+
+send_message: http://104.197.173.15/api/a3/send_message

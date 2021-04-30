@@ -27,7 +27,7 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity {
 
     private String user_id;
-    private final String URL = "http://118.195.180.134:9000/api/a3/";
+    private final String URL = "http://104.197.173.15/api/a3/";
     private final String GET_CHATROOM_URL = URL + "get_chatrooms";
     private SharedPreferences pref;
     private List<String> conversationList;
